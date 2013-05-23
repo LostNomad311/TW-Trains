@@ -1,0 +1,42 @@
+Description
+-------------------------
+I have chosen to solve the Trains problem with a Java application using a command-line interface. The interaction with the application is done via queries in a custom syntax, so that no external libraries were needed. Examples of the query syntax are below and are the provided sample questions translated:
+
+graph AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7
+
+distance trip A-B-C
+length route A-D
+distance route from A to D to C.
+length trip A-E-B-C-D.
+length trip A-E-D.
+count trip from C to C stops maximum 3
+number of routes from A-C stop exactly 4.
+shortest length from A to C.
+shortest distance from B to B
+number of trips from C-C distance maximum 29
+
+These same queries are contained within the provided input.txt file which can be passed to the application as the only argument. That script optional will be processed and the application will await subsequent queries. 'exit' can be entered at any time to quit the application.
+
+
+Technical Details
+-------------------------
+The application assumes that distances will be provided as integers and supports no operations other than those demonstrated in the sample input provided. When calculating the shortest trip between two towns, the application will only provide one path, even if equally short paths exist. The application was developed to be run on the Java 1.6 JRE and tested using JUnit 4 (tests are included). Finally the main class is com.thoughtworks.trains.controller.CommandLineController an example or running the application: java com.thoughtworks.trains.controller.CommandLineController <script_path>
+
+
+Included Files
+-------------------------
+src/ - source code
+test/ - source for tests
+bin/ - directory for placing the compiled classes
+input.txt - script for running the sample queries
+TWTrainsClassDiagram.png - class diagram of the primary components
+readme.txt - this file
+
+
+Compiling and Running in Windows
+-------------------------
+With the cmd.exe navigate to the directory you have extracted from this pakage. Then execute the following commands to compile and execute the application. The application has been tested to compile and execute with both JDK 1.6u45 and JDK 1.7u21.
+
+javac.exe src\*.java -sourcepath src -d bin
+
+java.exe -cp bin com.thoughtworks.trains.controller.CommandLineController input.txt

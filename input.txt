@@ -1,0 +1,12 @@
+graph AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7
+
+distance trip A-B-C
+length route A-D
+distance route from A to D to C.
+length trip A-E-B-C-D.
+length trip A-E-D.
+count trip from C to C stops maximum 3
+number of routes from A-C stop exactly 4.
+shortest length from A to C.
+shortest distance from B to B
+number of trips from C-C distance maximum 29

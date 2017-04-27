@@ -25,6 +25,7 @@ import com.thoughtworks.trains.model.RouteFactory;
 import com.thoughtworks.trains.model.TripBuilder;
 import com.thoughtworks.trains.model.TripInformationProvider;
 
+//TODO JBG Test queries with errors
 public class RegExQueryParserTest {
 
 	private static RegExQueryParser regExQueryParser;

@@ -11,9 +11,9 @@ import com.thoughtworks.trains.exception.NullRouteException;
 
 public interface TripInformationProvider {
 
-	Town addTown(char id) throws DuplicateTownException;
+	Town addTown(String id) throws DuplicateTownException;
 
-	Map<Character, Town> getTowns();
+	Map<String, Town> getTowns();
 
 	Route addRoute(Route route) throws DuplicateRouteException, NullRouteException, InvalidRouteException;
 

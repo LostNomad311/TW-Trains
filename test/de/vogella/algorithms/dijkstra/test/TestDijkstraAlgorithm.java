@@ -18,6 +18,7 @@ import de.vogella.algorithms.dijkstra.model.Vertex;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+//TODO JBG Test not implemented
 public class TestDijkstraAlgorithm {
 
   private List<Vertex> nodes;

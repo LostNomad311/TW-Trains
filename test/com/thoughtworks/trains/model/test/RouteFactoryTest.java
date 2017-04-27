@@ -32,24 +32,24 @@ public class RouteFactoryTest {
 		tripInformationProvider = new OneWayTripInformationProvider(tripBuilder);
 		
 		// Towns
-		tripInformationProvider.addTown('A');
-		tripInformationProvider.addTown('B');
-		tripInformationProvider.addTown('C');
-		tripInformationProvider.addTown('D');
-		tripInformationProvider.addTown('E');
+		tripInformationProvider.addTown("A");
+		tripInformationProvider.addTown("B");
+		tripInformationProvider.addTown("C");
+		tripInformationProvider.addTown("D");
+		tripInformationProvider.addTown("E");
 	}
 	
 	@Test
 	public void testCreateRoute() throws DuplicateRouteException, NullTownException {
-		Map<Character, Town> towns = tripInformationProvider.getTowns();
-		Town startTown = towns.get('A');
-		Town endTown = towns.get('B');
+		Map<String, Town> towns = tripInformationProvider.getTowns();
+		Town startTown = towns.get("A");
+		Town endTown = towns.get("B");
 		Route route = routeFactory.createRoute(startTown, endTown, 5); //AB5
 		
 		assertEquals("" + startTown.getId() + endTown.getId(), route.getId());
 		assertEquals(5, route.getDistance(), .1);
-		assertEquals(towns.get('A'), route.getStartTown());
-		assertEquals(towns.get('B'), route.getEndTown());
+		assertEquals(towns.get("A"), route.getStartTown());
+		assertEquals(towns.get("B"), route.getEndTown());
 	}
 
 }

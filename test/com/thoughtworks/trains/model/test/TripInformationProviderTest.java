@@ -39,23 +39,23 @@ public class TripInformationProviderTest {
 		tripInformationProvider = new OneWayTripInformationProvider(tripBuilder);
 		
 		// Towns
-		tripInformationProvider.addTown('A');
-		tripInformationProvider.addTown('B');
-		tripInformationProvider.addTown('C');
-		tripInformationProvider.addTown('D');
-		tripInformationProvider.addTown('E');
+		tripInformationProvider.addTown("A");
+		tripInformationProvider.addTown("B");
+		tripInformationProvider.addTown("C");
+		tripInformationProvider.addTown("D");
+		tripInformationProvider.addTown("E");
 		
 		// Routes
-		Map<Character, Town> towns = tripInformationProvider.getTowns();
-		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get('A'), towns.get('B'), 5)); //AB5
-		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get('B'), towns.get('C'), 4)); //BC4
-		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get('C'), towns.get('D'), 8)); //CD8
-		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get('D'), towns.get('C'), 8)); //DC8
-		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get('D'), towns.get('E'), 6)); //DE6
-		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get('A'), towns.get('D'), 5)); //AD5
-		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get('C'), towns.get('E'), 2)); //CE2
-		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get('E'), towns.get('B'), 3)); //EB3
-		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get('A'), towns.get('E'), 7)); //AE7
+		Map<String, Town> towns = tripInformationProvider.getTowns();
+		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get("A"), towns.get("B"), 5)); //AB5
+		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get("B"), towns.get("C"), 4)); //BC4
+		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get("C"), towns.get("D"), 8)); //CD8
+		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get("D"), towns.get("C"), 8)); //DC8
+		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get("D"), towns.get("E"), 6)); //DE6
+		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get("A"), towns.get("D"), 5)); //AD5
+		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get("C"), towns.get("E"), 2)); //CE2
+		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get("E"), towns.get("B"), 3)); //EB3
+		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get("A"), towns.get("E"), 7)); //AE7
 	}
 	
 	//TODO These tests need to support different trips with the same, shortest lengths. To do so, a method that calculates all of the shortest routes is required.
@@ -68,12 +68,12 @@ public class TripInformationProviderTest {
 		tripBuilder.createTrip();
 		Map<String, Route> routes = tripInformationProvider.getRoutes();
 		tripBuilder.addRoute(routes.get("AB"));
-		tripBuilder.addRoute(new DefaultRouteFactory().createRoute(new DefaultTown('B'), new DefaultTown('C'), 4));
+		tripBuilder.addRoute(new DefaultRouteFactory().createRoute(new DefaultTown("B"), new DefaultTown("C"), 4));
 		Trip shortestTrip = tripBuilder.getTrip();
 		
 		// Execute test
-		Map<Character, Town> towns = tripInformationProvider.getTowns();
-		Trip trip = tripInformationProvider.getShortestTrip(towns.get('A'), towns.get('C'));
+		Map<String, Town> towns = tripInformationProvider.getTowns();
+		Trip trip = tripInformationProvider.getShortestTrip(towns.get("A"), towns.get("C"));
 		
 		assertEquals("Trip", shortestTrip, trip);
 	}
@@ -92,8 +92,8 @@ public class TripInformationProviderTest {
 		Trip shortestTrip = tripBuilder.getTrip();
 		
 		// Execute test
-		Map<Character, Town> towns = tripInformationProvider.getTowns();
-		Trip trip = tripInformationProvider.getShortestTrip(towns.get('B'), towns.get('B'));
+		Map<String, Town> towns = tripInformationProvider.getTowns();
+		Trip trip = tripInformationProvider.getShortestTrip(towns.get("B"), towns.get("B"));
 		
 		assertEquals("Trip", shortestTrip, trip);
 	}
@@ -117,9 +117,9 @@ public class TripInformationProviderTest {
 		tripBuilder.addRoute(routes.get("BC"));
 		expectedTrips.add(tripBuilder.getTrip());
 		
-		Map<Character, Town> towns = tripInformationProvider.getTowns();
-		Town startTown = towns.get('C');
-		Town endTown = towns.get('C');
+		Map<String, Town> towns = tripInformationProvider.getTowns();
+		Town startTown = towns.get("C");
+		Town endTown = towns.get("C");
 		List<Trip> trips = tripInformationProvider.generateTripsWithMaxStops(startTown, endTown, 3);
 		
 		// Same number of trips
@@ -167,9 +167,9 @@ public class TripInformationProviderTest {
 		tripBuilder.addRoute(routes.get("BC"));
 		expectedTrips.add(tripBuilder.getTrip());
 		
-		Map<Character, Town> towns = tripInformationProvider.getTowns();
-		Town startTown = towns.get('A');
-		Town endTown = towns.get('C');
+		Map<String, Town> towns = tripInformationProvider.getTowns();
+		Town startTown = towns.get("A");
+		Town endTown = towns.get("C");
 		List<Trip> trips = tripInformationProvider.generateTripsWithMaxStops(startTown, endTown, 4, 4);
 
 		// Same number of trips
@@ -201,9 +201,9 @@ public class TripInformationProviderTest {
 		// C-E-B-C-E-B-C
 		// C-E-B-C-E-B-C-E-B-C
 		
-		Map<Character, Town> towns = tripInformationProvider.getTowns();
-		Town startTown = towns.get('C');
-		Town endTown = towns.get('C');
+		Map<String, Town> towns = tripInformationProvider.getTowns();
+		Town startTown = towns.get("C");
+		Town endTown = towns.get("C");
 		List<Trip> trips = tripInformationProvider.generateTripsWithMaxDistance(startTown, endTown, 29);
 		
 		assertEquals("Number of trips", 7, trips.size());
@@ -212,7 +212,7 @@ public class TripInformationProviderTest {
 	@Test
 	public void testAddTown() throws DuplicateTownException {
 		int oldTownCount = tripInformationProvider.getTowns().size();
-		tripInformationProvider.addTown('T');
+		tripInformationProvider.addTown("T");
 		
 		assertEquals("Number of towns", oldTownCount + 1, tripInformationProvider.getTowns().size());
 		//NOTE The ordering of the towns is not important
@@ -220,8 +220,8 @@ public class TripInformationProviderTest {
 	
 	@Test (expected = DuplicateTownException.class)
 	public void testAddTown_Duplicate() throws DuplicateTownException {
-		tripInformationProvider.addTown('T');
-		tripInformationProvider.addTown('T');
+		tripInformationProvider.addTown("T");
+		tripInformationProvider.addTown("T");
 	}
 	
 	@Test
@@ -234,8 +234,8 @@ public class TripInformationProviderTest {
 	@Test
 	public void testAddRoute() throws DuplicateRouteException, NullRouteException, NullTownException, InvalidRouteException {
 		int oldRouteCount = tripInformationProvider.getRoutes().size();
-		Map<Character, Town> towns = tripInformationProvider.getTowns();
-		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get('E'), towns.get('C'), 11)); //EC11
+		Map<String, Town> towns = tripInformationProvider.getTowns();
+		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get("E"), towns.get("C"), 11)); //EC11
 				
 		assertEquals("Number of routes", oldRouteCount + 1, tripInformationProvider.getRoutes().size());
 		//NOTE The order of the routes is not important
@@ -243,9 +243,9 @@ public class TripInformationProviderTest {
 
 	@Test(expected = DuplicateRouteException.class)
 	public void testAddRoute_Duplicate() throws DuplicateRouteException, NullRouteException, NullTownException, InvalidRouteException {
-		Map<Character, Town> towns = tripInformationProvider.getTowns();
-		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get('E'), towns.get('C'), 11)); //EC11
-		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get('E'), towns.get('C'), 11)); //EC11
+		Map<String, Town> towns = tripInformationProvider.getTowns();
+		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get("E"), towns.get("C"), 11)); //EC11
+		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get("E"), towns.get("C"), 11)); //EC11
 	}
 	
 	@Test

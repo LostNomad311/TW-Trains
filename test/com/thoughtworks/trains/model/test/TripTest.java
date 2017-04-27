@@ -37,23 +37,23 @@ public class TripTest {
 		tripInformationProvider = new OneWayTripInformationProvider(tripBuilder);
 		
 		// Towns
-		tripInformationProvider.addTown('A');
-		tripInformationProvider.addTown('B');
-		tripInformationProvider.addTown('C');
-		tripInformationProvider.addTown('D');
-		tripInformationProvider.addTown('E');
+		tripInformationProvider.addTown("A");
+		tripInformationProvider.addTown("B");
+		tripInformationProvider.addTown("C");
+		tripInformationProvider.addTown("D");
+		tripInformationProvider.addTown("E");
 		
 		// Routes
-		Map<Character, Town> towns = tripInformationProvider.getTowns();
-		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get('A'), towns.get('B'), 5)); //AB5
-		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get('B'), towns.get('C'), 4)); //BC4
-		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get('C'), towns.get('D'), 8)); //CD8
-		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get('D'), towns.get('C'), 8)); //DC8
-		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get('D'), towns.get('E'), 6)); //DE6
-		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get('A'), towns.get('D'), 5)); //AD5
-		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get('C'), towns.get('E'), 2)); //CE2
-		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get('E'), towns.get('B'), 3)); //EB3
-		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get('A'), towns.get('E'), 7)); //AE7
+		Map<String, Town> towns = tripInformationProvider.getTowns();
+		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get("A"), towns.get("B"), 5)); //AB5
+		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get("B"), towns.get("C"), 4)); //BC4
+		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get("C"), towns.get("D"), 8)); //CD8
+		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get("D"), towns.get("C"), 8)); //DC8
+		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get("D"), towns.get("E"), 6)); //DE6
+		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get("A"), towns.get("D"), 5)); //AD5
+		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get("C"), towns.get("E"), 2)); //CE2
+		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get("E"), towns.get("B"), 3)); //EB3
+		tripInformationProvider.addRoute(routeFactory.createRoute(towns.get("A"), towns.get("E"), 7)); //AE7
 	}
 	
 	@Test

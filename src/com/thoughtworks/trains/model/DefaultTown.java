@@ -2,13 +2,13 @@ package com.thoughtworks.trains.model;
 
 public class DefaultTown implements Town {
 
-	private char id;
+	private String id;
 	
-	public DefaultTown(char id) {
+	public DefaultTown(String id) {
 		this.id = id;
 	}
 	
-	public char getId() {
+	public String getId() {
 		return id;
 	}
 	
@@ -18,7 +18,7 @@ public class DefaultTown implements Town {
 		if (this == obj) return true;
 		if (getClass() != obj.getClass()) return false;
 		DefaultTown that = (DefaultTown) obj;
-		if (that.id != this.id) return false;
+		if (!that.id.equals(this.id)) return false;
 		
 		return true;
 	}

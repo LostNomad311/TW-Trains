@@ -145,10 +145,10 @@ public class RegExQueryParser implements QueryParser {
 				String routeGraph = routeMatcher.group(1);
 				Town startTown = tripInformationProvider.getTowns().get(routeGraph.charAt(0));
 				if (startTown == null)
-					startTown = tripInformationProvider.addTown(routeGraph.charAt(0));
+					startTown = tripInformationProvider.addTown(String.valueOf(routeGraph.charAt(0)));
 				Town endTown = tripInformationProvider.getTowns().get(routeGraph.charAt(1));
 				if (endTown == null)
-					endTown = tripInformationProvider.addTown(routeGraph.charAt(1));
+					endTown = tripInformationProvider.addTown(String.valueOf(routeGraph.charAt(1)));
 				Integer distance = Integer.valueOf(routeGraph.substring(2));
 				tripInformationProvider.addRoute(routeFactory.createRoute(startTown, endTown, distance));
 			}
@@ -158,15 +158,15 @@ public class RegExQueryParser implements QueryParser {
 	}
 	
 	private Route parseRouteFromMatcher2Groups(Matcher matcher) throws NullTownException, NullRouteException {
-		Town startTown = tripInformationProvider.getTowns().get(matcher.group(1).charAt(0));
-		Town endTown = tripInformationProvider.getTowns().get(matcher.group(2).charAt(0));
+		Town startTown = tripInformationProvider.getTowns().get(matcher.group(1));
+		Town endTown = tripInformationProvider.getTowns().get(matcher.group(2));
 
 		return routeFactory.createRoute(startTown, endTown, 0);
 	}
 		
 	private Route parseRouteFromMatcher3Groups(Matcher matcher) throws NullTownException, NullRouteException {
-		Town startTown = tripInformationProvider.getTowns().get(matcher.group(1).charAt(0));
-		Town endTown = tripInformationProvider.getTowns().get(matcher.group(2).charAt(0));
+		Town startTown = tripInformationProvider.getTowns().get(matcher.group(1));
+		Town endTown = tripInformationProvider.getTowns().get(matcher.group(2));
 		Integer distance = Integer.valueOf(matcher.group(3));
 
 		return routeFactory.createRoute(startTown, endTown, distance);

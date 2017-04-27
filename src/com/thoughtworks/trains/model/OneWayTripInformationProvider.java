@@ -22,7 +22,7 @@ public class OneWayTripInformationProvider implements TripInformationProvider {
 	//TODO Why aren't routes created through TripInformationProvider? (SoC)
 	//TODO The search algorithms can be refactored into a Strategy pattern. DijkstraAlgorithm, being third party could be accompanied by an Adapter or Proxy class (design) 
 
-	private Map<Character, Town> towns;
+	private Map<String, Town> towns;
 	private Map<String, Route> routes;
 	private TripBuilder tripBuilder;
 	
@@ -31,12 +31,12 @@ public class OneWayTripInformationProvider implements TripInformationProvider {
 	public OneWayTripInformationProvider(TripBuilder tripBuilder) {
 		this.tripBuilder = tripBuilder;
 		
-		this.towns = new HashMap<Character, Town>();
+		this.towns = new HashMap<String, Town>();
 		this.routes = new HashMap<String, Route>();
 	}
 	
 	@Override
-	public Town addTown(char id) throws DuplicateTownException {
+	public Town addTown(String id) throws DuplicateTownException {
 		for (Town existingTown : towns.values()) {
 			if (existingTown.getId() == id) {
 				throw new DuplicateTownException();
@@ -50,8 +50,8 @@ public class OneWayTripInformationProvider implements TripInformationProvider {
 	}
 
 	@Override
-	public Map<Character, Town> getTowns() {
-		return new HashMap<Character, Town>(towns);
+	public Map<String, Town> getTowns() {
+		return new HashMap<String, Town>(towns);
 	}
 
 	@Override
@@ -111,23 +111,27 @@ public class OneWayTripInformationProvider implements TripInformationProvider {
 		// Execute DijkstraAlgorithm
 		Graph graph = getGraph();
 		Map<String, Vertex> nodes = getGraphNodes();
-    DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(graph);
-    dijkstra.execute(nodes.get(String.valueOf(startTown.getId())));
-    List<Vertex> tripVertexes = dijkstra.getPath(nodes.get(String.valueOf(endTown.getId())));
-    
-    if (tripVertexes == null) {
-    	return null;
-    }
-    
-    // Build trip
-    Trip result = tripBuilder.createTrip();
-    for (int idx = 1; idx < tripVertexes.size(); idx++) {
-    	Vertex sourceVertex = tripVertexes.get(idx - 1);
-    	Vertex destinationVertex = tripVertexes.get(idx);
-    	result.addRoute(routes.get(sourceVertex.getId() + destinationVertex.getId()));
-    }
-    
-    return result;
+	    DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(graph);
+	    dijkstra.execute(nodes.get(String.valueOf(startTown.getId())));
+	    List<Vertex> tripVertexes = dijkstra.getPath(nodes.get(String.valueOf(endTown.getId())));
+	    
+	    if (tripVertexes == null) {
+	    	return null;
+	    }
+	    
+	    // Build trip
+	    Trip result = tripBuilder.createTrip();
+	    for (int idx = 1; idx < tripVertexes.size(); idx++) {
+	    	Vertex sourceVertex = tripVertexes.get(idx - 1);
+	    	Vertex destinationVertex = tripVertexes.get(idx);
+	    	result.addRoute(routes.get(sourceVertex.getId() + destinationVertex.getId()));
+	    }
+	    
+	    return result;
+	}
+	
+	public Trip getShortestTrip(String startTown, String endTown) throws NullRouteException {
+		return getShortestTrip(towns.get(startTown), towns.get(endTown));
 	}
 
 	@Override
@@ -146,20 +150,26 @@ public class OneWayTripInformationProvider implements TripInformationProvider {
 			return null;
 		}
 		
-    // Build trips
+	    // Build trips
 		List<Trip> result = new LinkedList<Trip>();
-    for (int idx = 0; idx < tripsVertexes.size(); idx++) {
-    	LinkedList<Vertex> tripVertexes = tripsVertexes.get(idx);
-    	Trip trip = tripBuilder.createTrip();
-    	for (int jdx = 1; jdx < tripVertexes.size(); jdx++) {
-      	Vertex sourceVertex = tripVertexes.get(jdx - 1);
-      	Vertex destinationVertex = tripVertexes.get(jdx);
-      	trip.addRoute(routes.get(sourceVertex.getId() + destinationVertex.getId()));
-    	}
-    	result.add(trip);
-    }
-    
-    return result;
+	    for (int idx = 0; idx < tripsVertexes.size(); idx++) {
+	    	LinkedList<Vertex> tripVertexes = tripsVertexes.get(idx);
+	    	Trip trip = tripBuilder.createTrip();
+	    	for (int jdx = 1; jdx < tripVertexes.size(); jdx++) {
+	      	Vertex sourceVertex = tripVertexes.get(jdx - 1);
+	      	Vertex destinationVertex = tripVertexes.get(jdx);
+	      	trip.addRoute(routes.get(sourceVertex.getId() + destinationVertex.getId()));
+	    	}
+	    	result.add(trip);
+	    }
+	    
+	    return result;
+	}
+	
+
+	public List<Trip> generateTripsWithMaxStops(String startTown, String endTown,
+			int maximumStops, int minimumStops) throws NullRouteException {
+		return generateTripsWithMaxStops(towns.get(startTown), towns.get(endTown), maximumStops, minimumStops);
 	}
 
 	@Override
@@ -180,20 +190,25 @@ public class OneWayTripInformationProvider implements TripInformationProvider {
 			return null;
 		}
 		
-    // Build trips
+	    // Build trips
 		List<Trip> result = new LinkedList<Trip>();
-    for (int idx = 0; idx < tripsVertexes.size(); idx++) {
-    	LinkedList<Vertex> tripVertexes = tripsVertexes.get(idx);
-    	Trip trip = tripBuilder.createTrip();
-    	for (int jdx = 1; jdx < tripVertexes.size(); jdx++) {
-      	Vertex sourceVertex = tripVertexes.get(jdx - 1);
-      	Vertex destinationVertex = tripVertexes.get(jdx);
-      	trip.addRoute(routes.get(sourceVertex.getId() + destinationVertex.getId()));
-    	}
-    	result.add(trip);
-    }
-    
-    return result;
+	    for (int idx = 0; idx < tripsVertexes.size(); idx++) {
+	    	LinkedList<Vertex> tripVertexes = tripsVertexes.get(idx);
+	    	Trip trip = tripBuilder.createTrip();
+	    	for (int jdx = 1; jdx < tripVertexes.size(); jdx++) {
+	      	Vertex sourceVertex = tripVertexes.get(jdx - 1);
+	      	Vertex destinationVertex = tripVertexes.get(jdx);
+	      	trip.addRoute(routes.get(sourceVertex.getId() + destinationVertex.getId()));
+	    	}
+	    	result.add(trip);
+	    }
+	    
+	    return result;
+	}
+
+	public List<Trip> generateTripsWithMaxDistance(String startTown, String endTown,
+			int maxiumumDistance, int minimumDistance) throws NullRouteException {
+		return generateTripsWithMaxDistance(towns.get(startTown), towns.get(endTown), maxiumumDistance);
 	}
 
 	@Override
@@ -212,10 +227,20 @@ public class OneWayTripInformationProvider implements TripInformationProvider {
 		return generateTripsWithMaxStops(startTown, endTown, maximumStops, 1);
 	}
 
+	public List<Trip> generateTripsWithMaxStops(String startTown, String endTown,
+			int maximumStops) throws NullRouteException {
+		return generateTripsWithMaxStops(towns.get(startTown), towns.get(endTown), maximumStops);
+	}
+
 	@Override
 	public List<Trip> generateTripsWithMaxDistance(Town startTown, Town endTown,
 			int maxiumumDistance) throws NullRouteException {
 		return generateTripsWithMaxDistance(startTown, endTown, maxiumumDistance, 1);
+	}
+
+	public List<Trip> generateTripsWithMaxDistance(String startTown, String endTown,
+			int maxiumumDistance) throws NullRouteException {
+		return generateTripsWithMaxDistance(towns.get(startTown), towns.get(endTown), maxiumumDistance);
 	}
 
 	@Override

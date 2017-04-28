@@ -4,10 +4,10 @@ import com.thoughtworks.trains.exception.NullTownException;
 
 public class DefaultRoute implements Route {
 	
-	private int distance;
-	private Town startTown;
-	private Town endTown;
-	private String id;
+	protected int distance;
+	protected Town startTown;
+	protected Town endTown;
+	protected String id;
 
 	public DefaultRoute(String id, Town startTown, Town endTown, int distance) throws NullTownException {
 		if (startTown == null || endTown == null) {

@@ -8,8 +8,14 @@ public class DefaultTown implements Town {
 		this.id = id;
 	}
 	
+	@Override
 	public char getId() {
 		return id;
+	}
+	
+	@Override
+	public String getUtfId() {
+		return String.valueOf(id);
 	}
 	
 	@Override

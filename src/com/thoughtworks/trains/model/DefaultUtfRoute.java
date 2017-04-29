@@ -2,22 +2,23 @@ package com.thoughtworks.trains.model;
 
 import com.thoughtworks.trains.exception.NullTownException;
 
-public class DefaultRoute implements Route {
-	
-	protected int distance;
-	protected Town startTown;
-	protected Town endTown;
-	protected String id;
+public class DefaultUtfRoute implements UtfRoute {
 
-	public DefaultRoute(String id, Town startTown, Town endTown, int distance) throws NullTownException {
-		if (startTown == null || endTown == null) {
-			throw new NullTownException();
-		}
-		
+	protected String id;
+	protected UtfTown startTown;
+	protected UtfTown endTown;
+	protected int distance;
+	
+	public DefaultUtfRoute(String id, UtfTown startTown, UtfTown endTown, int distance) throws NullTownException {
+		this.id = id;
 		this.startTown = startTown;
 		this.endTown = endTown;
 		this.distance = distance;
-		this.id = id;
+	}
+
+	@Override
+	public String getId() {
+		return id;
 	}
 
 	@Override
@@ -26,23 +27,18 @@ public class DefaultRoute implements Route {
 	}
 
 	@Override
-	public Town getStartTown() {
+	public UtfTown getStartTown() {
 		return startTown;
 	}
 
 	@Override
-	public Town getEndTown() {
+	public UtfTown getEndTown() {
 		return endTown;
 	}
 	
 	@Override
-	public String getId() {
-		return id;
-	}
-	
-	@Override
 	public String toString() {
-		return "" + startTown.getId() + endTown.getId() + distance;
+		return "" + startTown.getUtfId() + endTown.getUtfId() + distance;
 	}
 	
 	@Override
@@ -51,7 +47,7 @@ public class DefaultRoute implements Route {
 		if (obj == this) return true;
 		if (!obj.getClass().equals(this.getClass())) return false;
 		
-		DefaultRoute that = (DefaultRoute)obj;
+		DefaultUtfRoute that = (DefaultUtfRoute)obj;
 
 		if (!that.getId().equals(this.getId())) return false;
 		if (that.getDistance() != this.getDistance()) return false;

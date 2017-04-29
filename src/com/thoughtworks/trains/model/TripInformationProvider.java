@@ -9,11 +9,20 @@ import com.thoughtworks.trains.exception.InvalidRouteException;
 import com.thoughtworks.trains.exception.NullRouteException;
 
 
-public interface TripInformationProvider {
+/**
+ * 
+ * @author Jerome BG
+ * 
+ * @deprecated Does not support multi-character Town ids. Replaced by {@link #UtfTripInformationProvider}
+ *
+ */
+public interface TripInformationProvider extends BaseTripInformationProvider {
 
 	Town addTown(char id) throws DuplicateTownException;
 
 	Map<Character, Town> getTowns();
+
+	void clearTowns();
 
 	Route addRoute(Route route) throws DuplicateRouteException, NullRouteException, InvalidRouteException;
 
@@ -30,12 +39,6 @@ public interface TripInformationProvider {
 
 	List<Trip> generateTripsWithMaxDistance(Town startTown, Town endTown, int maxiumumDistance) throws NullRouteException;
 
-	void clearTowns();
-
 	void clearRoutes();
-
-	void reset();
-	
-	boolean isReady();
 
 }

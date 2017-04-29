@@ -18,6 +18,13 @@ import de.vogella.algorithms.dijkstra.model.Edge;
 import de.vogella.algorithms.dijkstra.model.Graph;
 import de.vogella.algorithms.dijkstra.model.Vertex;
 
+/**
+ * 
+ * @author Jerome BG
+ * 
+ * @deprecated Does not support multi-character Town ids.
+ *
+ */
 public class OneWayTripInformationProvider implements TripInformationProvider {
 	//TODO Why aren't routes created through TripInformationProvider? (SoC)
 	//TODO The search algorithms can be refactored into a Strategy pattern. DijkstraAlgorithm, being third party could be accompanied by an Adapter or Proxy class (design) 

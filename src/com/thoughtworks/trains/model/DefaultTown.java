@@ -14,11 +14,6 @@ public class DefaultTown implements Town {
 	}
 	
 	@Override
-	public String getUtfId() {
-		return String.valueOf(id);
-	}
-	
-	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) return false;
 		if (this == obj) return true;

@@ -50,6 +50,7 @@ public class RegExQueryParser implements QueryParser {
 	private RouteFactory routeFactory;
 	private List<String> results; //TODO Expand results to an object that includes errors
 
+	//TODO JBG Dependency Injection could be used here
 	public RegExQueryParser(TripInformationProvider tripInformationProvider, TripBuilder tripBuilder, RouteFactory routeFactory) {
 		this.tripInformationProvider = tripInformationProvider;
 		this.tripBuilder = tripBuilder;
